@@ -6,5 +6,4 @@ const router=express.Router()
 
 router.route("/register").post(signup)
 
-
 export default router

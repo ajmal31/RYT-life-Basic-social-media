@@ -10,17 +10,19 @@ export const signup = async (req, res) => {
 
     //check email is already exist or not
     const key = "email";
-    const user = await userHelper.findUser(key, email);
-    if (user) return res.json({ message: "user already exists" });
+    const user = await userHelper.findUser(key, email)
+    if (user) return res.status(409).json({ message: "user already exists" });
 
     const newUser = await userHelper.createNewUser(
       username,
       email,
       hashedPassword
     );
-    return res.json({ message: "user created" });
-    
+    return res.json({ message: "user created" ,data:{userId:newUser?.id}});
+
   } catch (error) {
     return res.status(400).json({ message: error.message });
   }
 };
+
+
