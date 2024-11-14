@@ -12,6 +12,7 @@ app.use(morgan("dev"))
 
 app.use("/api/v1/users",userRouter)
 
+
 // connecting db
 connectDb(constants.MONGO_URI)
   .then(() => {
