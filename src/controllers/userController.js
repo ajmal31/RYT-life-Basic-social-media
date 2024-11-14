@@ -41,9 +41,15 @@ export const login=async(req,res)=>{
         if(!user) throw new Error("Invalid credentials")
 
         const isPasswordValid=await user.validatePassword(password)
-        if(!isPasswordValid) throw new Error("Invalid credentials")
+        if(!isPasswordValid) throw new Error("Invalid credentials")   
 
         // TODO: genereate JWT token    
+        const payload={
+            userId:user._id
+        }
+        const token=user.getJWT(payload)
+        res.cookie("token",token,{maxAge:1000*60*60*24*7})
+        res.json({message:"login success",data:{token}})
 
     } catch (error) {
         res.status(400).json({message:error?.message})

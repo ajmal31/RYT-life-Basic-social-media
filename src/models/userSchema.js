@@ -1,5 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import constants from "../utils/constants.js"
 
 const userSchema = new Schema({
   username: {
@@ -22,6 +24,12 @@ userSchema.methods.validatePassword=async function (password){
     
     const isPasswordValid=await bcrypt.compare(password,this.password)
     return isPasswordValid
+}
+
+userSchema.methods.getJWT=function (payload){
+
+    const token=jwt.sign(payload,constants.JWT_SECRET_KEY,{expiresIn:"7d"})
+    return token
 }
 
 export const UserModel = model("users", userSchema);
