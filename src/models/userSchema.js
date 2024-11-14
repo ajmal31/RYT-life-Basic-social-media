@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt"
 
 const userSchema = new Schema({
   username: {
@@ -15,5 +16,12 @@ const userSchema = new Schema({
     required: true,
   },
 });
+
+
+userSchema.methods.validatePassword=async function (password){
+    
+    const isPasswordValid=await bcrypt.compare(password,this.password)
+    return isPasswordValid
+}
 
 export const UserModel = model("users", userSchema);

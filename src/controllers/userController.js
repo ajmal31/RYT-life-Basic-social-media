@@ -1,5 +1,5 @@
 import userHelper from "../helpers/userHelper.js";
-import { userSignupValidation } from "../utils/validations.js";
+import { loginValidation, userSignupValidation } from "../utils/validations.js";
 import { passworHash } from "../utils/passwordHash.js";
 
 export const signup = async (req, res) => {
@@ -26,5 +26,28 @@ export const signup = async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 };
+
+export const login=async(req,res)=>{
+
+    try {
+        loginValidation(req)
+        //check user exist or not
+        //check password valid
+        //creat JWT token
+        // Bonue : handle multiple brower login/logged out
+        const{password,email}=req.body
+        const key="email"
+        const user=await userHelper.findUser(key,email)
+        if(!user) throw new Error("Invalid credentials")
+
+        const isPasswordValid=await user.validatePassword(password)
+        if(!isPasswordValid) throw new Error("Invalid credentials")
+
+        // TODO: genereate JWT token    
+
+    } catch (error) {
+        res.status(400).json({message:error?.message})
+    }
+}
 
 
