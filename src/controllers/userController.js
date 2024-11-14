@@ -1,12 +1,14 @@
 import userHelper from "../helpers/userHelper.js";
 import { userSignupValidation } from "../utils/validations.js";
-import bcrypt from "bcrypt";
+import { passworHash } from "../utils/passwordHash.js";
 
 export const signup = async (req, res) => {
   try {
     userSignupValidation(req);
     const { username, password, email } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+
+    //Hashing password
+    const hashedPassword = await passworHash(password)
 
     //check email is already exist or not
     const key = "email";
