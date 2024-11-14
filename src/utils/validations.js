@@ -25,7 +25,23 @@ export const loginValidation = (req) => {
     throw new Error("Email is not valid");
   }
   //if it's not a strong password there is no chance match this password
-  if(!validator.isStrongPassword(password)){
-    throw new Error("invalid credentials")
+  if (!validator.isStrongPassword(password)) {
+    throw new Error("invalid credentials");
   }
+};
+
+export const creatPostValidation = (req) => {
+  const { title } = req.body;
+  const { file } = req;
+  const maxFileSize=2 * 1048576
+  
+  const contentAcceptedTypes = ["jpeg", "jpg", "png"];
+  const { user } = req;
+
+  if (!title || !file) throw new Error("Please provide neccesory values");
+  const type = file.mimetype?.split("/")[1];
+  if(!contentAcceptedTypes.includes(type)) throw new Error("Content type is not acceptable")
+   
+  if(!validator.isLength(title,{max:200})) throw new Error("Title length must be under 200 chars")
+  if(file.size >maxFileSize) throw new Error("File size exceeds")
 };

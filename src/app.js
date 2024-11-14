@@ -3,6 +3,7 @@ import { connectDb } from "./config/db.js";
 import constants from "./utils/constants.js";
 import morgan from "morgan";
 import userRouter from "./Routes/userRouter.js"
+import postRouter from "./Routes/postRouter.js"
 
 const app = express();
 
@@ -10,7 +11,7 @@ app.use(express.json())
 app.use(morgan("dev"))
 
 app.use("/api/v1/users",userRouter)
-
+app.use("/api/v1/posts",postRouter)
 
 // connecting db
 connectDb(constants.MONGO_URI)
