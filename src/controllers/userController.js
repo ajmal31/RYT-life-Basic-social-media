@@ -1,6 +1,7 @@
 import userHelper from "../helpers/userHelper.js";
 import { loginValidation, userSignupValidation } from "../utils/validations.js";
 import { passworHash } from "../utils/passwordHash.js";
+import { uploadFile } from "../utils/uploadFile.js";
 
 export const signup = async (req, res) => {
   try {
@@ -55,6 +56,24 @@ export const login=async(req,res)=>{
     } catch (error) {
         res.status(400).json({message:error?.message})
     }
+}
+
+export const uploadProfilePicture=async(req,res)=>{
+  try {
+    const {_id}=req.user
+    const file=req?.file
+    if(!file) throw new Error("Attach the file")
+    const folderName="profilesPictures"
+    const url=await uploadFile(file,folderName,_id)
+    const key="profilePictureURL"
+    const profilePictureUpdated=await userHelper.updateUserFeilds(_id,key,url)
+    console.log("prifle updated",profilePictureUpdated)
+    res.json({message:"profile updated"})
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({message:error.message})
+  }
 }
 
 

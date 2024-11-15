@@ -11,9 +11,9 @@ const s3 = new S3Client({
   region: "eu-north-1",
 });
 
-export const uploadFile = async (file,folderName) => {
+export const uploadFile = async (file,folderName,id) => {
     const bucketName="ryt-life"
-    const key = `${folderName}/${v4()}`;
+    const key = `${folderName}/${id ? id : v4()}`;
     const command = new PutObjectCommand({
       Bucket: bucketName,
       Key: key,

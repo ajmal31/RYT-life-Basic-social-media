@@ -47,8 +47,8 @@ export const deletePost = async (req, res) => {
 
 export const likeToggler = async (req, res) => {
   try {
-    const { _id } = req.user;
-    const postId = req.params.id;
+    const { _id } = req?.user;
+    const postId = req.params?.id;
 
     // Find the post
     const post = await postHelper.findOnePost(postId);
@@ -61,12 +61,14 @@ export const likeToggler = async (req, res) => {
     );
 
     if (isLiked) {
+      // Remove the like
       post.likes = post.likes.filter(
         (like) => like?.userId.toString() !== _id.toString()
       );
       post.save();
       res.json({ message: "unliked", data: { likesCount: post?.likes.length } });
     } else {
+      // Add Like
       post.likes.push({ userId: _id });
       post.save();
       res.json({ message: "Liked", data: { likesCount: post?.likes.length } });
