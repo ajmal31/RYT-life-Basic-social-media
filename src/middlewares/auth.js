@@ -4,15 +4,16 @@ import userHelper from "../helpers/userHelper.js";
 const authentication = async(req, res, next) => {
   try {
     const { token } = req.cookies;
-    
+    console.log("auth",token)
     if (!token) {
-        return res.json({ message: "Token not found. Please login" });
+        return res.staus(404).json({ message: "Token not found. Please login" });
     }
     //Verifying Token
     const data = jwt.verify(token, constants.JWT_SECRET_KEY);
     const key="_id"
 
     const user=await userHelper.findUser(key,data?.userId)
+    if(!user) return res.status(404).json({message:"Please login"})
     req.user = user;
     next();
   } catch (error) {

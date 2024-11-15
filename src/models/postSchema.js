@@ -14,6 +14,8 @@ const postSchema = new Schema({
     ref: "users",
     required:true
   },
+},{
+  timestamps:true
 });
 
 export const PostModel=model("posts",postSchema)

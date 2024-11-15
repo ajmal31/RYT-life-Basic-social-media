@@ -23,6 +23,7 @@ export const signup = async (req, res) => {
     return res.json({ message: "user created" ,data:{userId:newUser?.id}});
 
   } catch (error) {
+    console.warn(error)
     return res.status(400).json({ message: error.message });
   }
 };
