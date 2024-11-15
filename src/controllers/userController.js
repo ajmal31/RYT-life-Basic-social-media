@@ -1,11 +1,9 @@
 import userHelper from "../helpers/userHelper.js";
-import { loginValidation, userSignupValidation } from "../utils/validations.js";
 import { passworHash } from "../utils/passwordHash.js";
 import { uploadFile } from "../utils/uploadFile.js";
 
 export const signup = async (req, res) => {
   try {
-    userSignupValidation(req);
     const { username, password, email } = req.body;
 
     //Hashing password
@@ -32,7 +30,6 @@ export const signup = async (req, res) => {
 export const login=async(req,res)=>{
 
     try {
-        loginValidation(req)
         //check user exist or not
         //check password valid
         //creat JWT token
@@ -40,10 +37,10 @@ export const login=async(req,res)=>{
         const{password,email}=req.body
         const key="email"
         const user=await userHelper.findUser(key,email)
-        if(!user) throw new Error("Invalid credentials")
+        if (!user) return res.status(404).json({ message: "Invalid credentials" });
 
         const isPasswordValid=await user.validatePassword(password)
-        if(!isPasswordValid) throw new Error("Invalid credentials")   
+        if (!isPasswordValid) return res.status(401).json({ message: "Invalid credentials" });
 
         // TODO: genereate JWT token    
         const payload={
@@ -51,7 +48,7 @@ export const login=async(req,res)=>{
         }
         const token=user.getJWT(payload)
         res.cookie("token",token,{maxAge:1000*60*60*24*7})
-        res.json({message:"login success",data:{token}})
+        res.json({message:"login successful",data:{token}})
 
     } catch (error) {
         res.status(400).json({message:error?.message})

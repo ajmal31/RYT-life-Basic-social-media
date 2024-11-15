@@ -6,12 +6,12 @@ import { UserModel } from "../models/userSchema.js";
 
 const request = supertest(app); // Create the `request` object for testing
 
-/* Connecting to the database before all tests. */
 beforeAll(async () => {
   await mongoose.connect(constants.MONGO_URI_TEST, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+  
 });
 
 /* Clearing the database before each test. */
@@ -21,7 +21,7 @@ beforeEach(async () => {
 
 /* Closing the database connection after all tests. */
 afterAll(async () => {
-  await mongoose.connection.close();
+  await mongoose.connection.close(); // Close DB connection
 });
 
 describe("POST /api/v1/users/register", () => {
@@ -55,7 +55,6 @@ describe("POST /api/v1/users/register", () => {
     await UserModel.create(newUser);
 
     const response = await request.post("/api/v1/users/register").send(newUser);
-   console.info(response)
     expect(response.status).toBe(409);
     expect(response.body.message).toBe("user already exists");
   });
@@ -84,4 +83,5 @@ describe("POST /api/v1/users/register", () => {
     expect(response.status).toBe(400); // Assuming your validation throws 400 for invalid inputs
     expect(response.body.message).toBeDefined();
   });
+
 });

@@ -5,7 +5,7 @@ import morgan from "morgan";
 import userRouter from "./Routes/userRouter.js"
 import postRouter from "./Routes/postRouter.js"
 import cookieParser from "cookie-parser";
-import startServer from "./config/server.js";
+// import startServer from "./config/server.js";
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use("/api/v1/posts",postRouter)
 connectDb(constants.MONGO_URI)
   .then(() => {
     console.info("data connection established succesfull");
-    startServer(app)
+    // startServer(app)
     
   })
   .catch((err) => {

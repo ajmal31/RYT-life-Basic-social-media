@@ -1,8 +1,7 @@
-const PORT = 3000;
-const startServer=(app)=>{
-    app.listen(PORT, () => {
-        console.log("Server listening on port 3000");
-      });
+import app from "../app.js";
 
-}
-export default startServer
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

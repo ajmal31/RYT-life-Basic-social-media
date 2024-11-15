@@ -4,7 +4,7 @@
   "description": "This is basic social media application",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/app.js",
+    "dev": "nodemon src/config/server.js",
      "test": "jest --detectOpenHandles"
   },
   "author": "Muhammed Ajmal",
