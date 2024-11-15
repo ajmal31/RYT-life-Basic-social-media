@@ -33,7 +33,6 @@ export const login=async(req,res)=>{
         //check user exist or not
         //check password valid
         //creat JWT token
-        // Bonue : handle multiple brower login/logged out
         const{password,email}=req.body
         const key="email"
         const user=await userHelper.findUser(key,email)
@@ -64,7 +63,6 @@ export const uploadProfilePicture=async(req,res)=>{
     const url=await uploadFile(file,folderName,_id)
     const key="profilePictureURL"
     const profilePictureUpdated=await userHelper.updateUserFeilds(_id,key,url)
-    console.log("prifle updated",profilePictureUpdated)
     res.json({message:"profile updated"})
 
   } catch (error) {

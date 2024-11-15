@@ -5,12 +5,13 @@ import { loginValidation,userSignupValidation } from "../middlewares/validation.
 import multerHandler from "../utils/multer.js"
 const router=express.Router()
 
-// Register a user
-
+// REGISTER USER
 router.route("/register").post(userSignupValidation,signup)
 
+// LOGIN USER
 router.route("/login").post(loginValidation,login)
 
+// UPLOAD USER PROFILE PICTURE
 router.route('/profilePicture')
 .patch(authentication,multerHandler("profile"),uploadProfilePicture)
 
