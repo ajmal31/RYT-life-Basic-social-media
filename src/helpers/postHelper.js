@@ -7,5 +7,12 @@ export default{
             contentURL,
             userId
         }).save()
+    },
+    findAllPosts:async(lastDocId)=>{
+        const query=lastDocId ? {_id:{$gt:lastDocId}} : {}
+        return await PostModel.find(query)
+        .sort({_id:1})
+        .limit(10)
+        .populate("userId",["username"])
     }
 }
