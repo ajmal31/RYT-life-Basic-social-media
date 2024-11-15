@@ -5,6 +5,7 @@ import morgan from "morgan";
 import userRouter from "./Routes/userRouter.js"
 import postRouter from "./Routes/postRouter.js"
 import cookieParser from "cookie-parser";
+import startServer from "./config/server.js";
 
 const app = express();
 
@@ -19,10 +20,11 @@ app.use("/api/v1/posts",postRouter)
 connectDb(constants.MONGO_URI)
   .then(() => {
     console.info("data connection established succesfull");
-    app.listen(3000, () => {
-      console.log("Server listening on port 3000");
-    });
+    startServer(app)
+    
   })
   .catch((err) => {
     console.warn("database not connected", err?.message);
   });
+
+export default app
