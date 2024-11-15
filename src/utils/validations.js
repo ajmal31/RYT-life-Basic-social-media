@@ -38,7 +38,7 @@ export const creatPostValidation = (req) => {
   const contentAcceptedTypes = ["jpeg", "jpg", "png"];
   const { user } = req;
 
-  if (!title || !file) throw new Error("Please provide neccesory values");
+  if (!title || !file||!user) throw new Error("Please provide neccesory values");
   const type = file.mimetype?.split("/")[1];
   if(!contentAcceptedTypes.includes(type)) throw new Error("Content type is not acceptable")
    

@@ -28,7 +28,7 @@ userSchema.methods.validatePassword=async function (password){
 
 userSchema.methods.getJWT=function (payload){
 
-    const token=jwt.sign(payload,constants.JWT_SECRET_KEY,{expiresIn:"7d"})
+    const token=jwt.sign(payload,constants.JWT_SECRET_KEY,{expiresIn:'7d'})
     return token
 }
 

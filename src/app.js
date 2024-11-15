@@ -4,11 +4,13 @@ import constants from "./utils/constants.js";
 import morgan from "morgan";
 import userRouter from "./Routes/userRouter.js"
 import postRouter from "./Routes/postRouter.js"
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(express.json())
 app.use(morgan("dev"))
+app.use(cookieParser())
 
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/posts",postRouter)

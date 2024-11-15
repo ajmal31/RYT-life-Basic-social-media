@@ -22,9 +22,7 @@ export const uploadFile = async (file,folderName) => {
     });
 
     //Adding to S3 Bucket
-    const response = await s3.send(command);
-    console.log("Response",response)
-
+    await s3.send(command);
     const url = `https://s3.eu-north-1.amazonaws.com/${bucketName}/${key}`;
     return url; // Return the response from S3
 };
