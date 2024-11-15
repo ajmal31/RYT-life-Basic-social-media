@@ -1,5 +1,5 @@
 import express from "express"
-import { createPost,getAllPosts } from "../controllers/postController.js"
+import { createPost,getAllPosts,deletePost } from "../controllers/postController.js"
 import multer from "multer"
 import authentication from "../middlewares/auth.js"
 const router=express.Router()
@@ -10,5 +10,8 @@ router.use(authentication)
 router.route("/")
 .post(upload.single("post"),createPost)
 .get(getAllPosts)
+
+router.route("/:id")
+.delete(deletePost)
 
 export default router

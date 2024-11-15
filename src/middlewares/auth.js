@@ -4,7 +4,6 @@ import userHelper from "../helpers/userHelper.js";
 const authentication = async(req, res, next) => {
   try {
     const { token } = req.cookies;
-    console.log("auth",token)
     if (!token) {
         return res.staus(404).json({ message: "Token not found. Please login" });
     }

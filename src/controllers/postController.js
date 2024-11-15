@@ -27,3 +27,20 @@ export const getAllPosts = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+export const deletePost = async (req, res) => {
+  try {
+    const postId = req.params?.id;
+    const {_id}=req.user
+    if (!postId) throw new Error("Request is not valid");
+
+    const post = await postHelper.deletePost(postId,_id);
+
+    if (!post.deletedCount) {
+      throw new Error("unAuhtorized request");
+    }
+    res.json({ message: "post deleted" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

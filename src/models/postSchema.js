@@ -18,4 +18,6 @@ const postSchema = new Schema({
   timestamps:true
 });
 
+postSchema.index({_id:1,userId:1})
+
 export const PostModel=model("posts",postSchema)

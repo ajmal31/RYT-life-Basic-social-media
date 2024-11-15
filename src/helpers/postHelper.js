@@ -14,5 +14,8 @@ export default{
         .sort({_id:1})
         .limit(10)
         .populate("userId",["username"])
+    },
+    deletePost:async(postId,userId)=>{
+      return await PostModel.deleteOne({_id:postId,userId})
     }
 }
