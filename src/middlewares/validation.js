@@ -34,7 +34,7 @@ export const loginValidation = (req,res,next) => {
   next()
 };
 
-export const creatPostValidation = (req) => {
+export const creatPostValidation = (req,res,next) => {
   const { title } = req.body;
   const { file } = req;
   const maxFileSize=2 * 1048576

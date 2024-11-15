@@ -1,10 +1,8 @@
 import { uploadFile } from "../utils/uploadFile.js";
-import { creatPostValidation } from "../utils/validations.js";
 import postHelper from "../helpers/postHelper.js";
 
 export const createPost = async (req, res) => {
   try {
-    creatPostValidation(req);
     const { _id } = req.user;
     const folderName = "posts";
     const url = await uploadFile(req.file, folderName);
