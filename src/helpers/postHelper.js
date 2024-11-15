@@ -17,5 +17,11 @@ export default{
     },
     deletePost:async(postId,userId)=>{
       return await PostModel.deleteOne({_id:postId,userId})
+    },
+    findOnePost:async(postId)=>{
+      return PostModel.findOne({_id:postId})
+    },
+    updateLike:async()=>{
+
     }
 }

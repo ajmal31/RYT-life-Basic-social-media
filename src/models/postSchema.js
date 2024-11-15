@@ -14,6 +14,15 @@ const postSchema = new Schema({
     ref: "users",
     required:true
   },
+  likes:[
+    {
+      userId:{
+        type:Schema.ObjectId,
+        ref:"users",
+        unique:true
+      }
+    }
+  ]
 },{
   timestamps:true
 });
