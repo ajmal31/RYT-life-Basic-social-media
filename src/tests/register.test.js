@@ -1,17 +1,13 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
-import app from "../app.js";
+import app from "../config/expressConfig.js";
 import constants from "../utils/constants.js";
 import { UserModel } from "../models/userSchema.js";
 
 const request = supertest(app); // Create the `request` object for testing
 
 beforeAll(async () => {
-  await mongoose.connect(constants.MONGO_URI_TEST, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  
+  await mongoose.connect(constants.MONGO_URI_TEST);
 });
 
 /* Clearing the database before each test. */

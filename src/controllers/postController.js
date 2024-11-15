@@ -8,7 +8,7 @@ export const createPost = async (req, res) => {
     const url = await uploadFile(req.file, folderName);
 
     // //TODO : authenticated user can only create post
-    const newPost = await postHelper.creatNewPost(req.body.title, url, _id);
+    const newPost = await postHelper.createNewPost(req.body.title, url, _id);
     return res.json({ message: "post created" });
   } catch (error) {
     console.log(error);
@@ -64,7 +64,10 @@ export const likeToggler = async (req, res) => {
         (like) => like?.userId.toString() !== _id.toString()
       );
       post.save();
-      res.json({ message: "unliked", data: { likesCount: post?.likes.length } });
+      res.json({
+        message: "unliked",
+        data: { likesCount: post?.likes.length },
+      });
     } else {
       // Add Like
       post.likes.push({ userId: _id });
