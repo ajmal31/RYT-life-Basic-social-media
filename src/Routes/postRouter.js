@@ -1,5 +1,5 @@
 import express from "express"
-import { createPost,getAllPosts,deletePost, likeToggler,addComment } from "../controllers/postController.js"
+import { createPost,getAllPosts,deletePost, likeToggler,addComment,updatePost } from "../controllers/postController.js"
 import authentication from "../middlewares/auth.js"
 import { creatPostValidation } from "../middlewares/validation.js"
 import multerHandler from "../utils/multer.js"
@@ -14,6 +14,7 @@ router.route("/")
 // DELETE POST
 router.route("/:id")
 .delete(deletePost)
+.patch(updatePost)
 
 // LIKE/DISLIKE POST
 router.route("/:id/like")
@@ -21,5 +22,6 @@ router.route("/:id/like")
 
 // ADD COMMENT
 router.route("/:id/comment").post(addComment)
+
 
 export default router

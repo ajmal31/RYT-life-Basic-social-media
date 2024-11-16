@@ -87,14 +87,35 @@ export const addComment = async (req, res) => {
     const { _id } = req?.user;
     const postId = req.params?.id;
     const { content } = req.body;
-    if (!postId||!content||typeof content !=="string") throw new Error("Invalid Request");
+    if (!postId || !content || typeof content !== "string")
+      throw new Error("Invalid Request");
 
     const post = await postHelper.findOnePost(postId);
     if (!post) throw new Error("Invalid Request");
     post.comments.push({ userId: _id, content });
     post.save();
-    res.json({message:"comment Added"})
+    res.json({ message: "comment Added" });
   } catch (error) {
-    return res.status(400).json({message:error.message})
+    return res.status(400).json({ message: error.message });
+  }
+};
+export const updatePost = async (req, res) => {
+  try {
+    let { title } = req.body;
+    const postId = req.params?.id;
+    const { _id } = req.user;
+    if ((!title?.trim() && typeof title !== "string") || !postId) {
+      throw new Error("Invalid Request");
+    }
+    const post = await postHelper.findOnePost(postId, _id);
+
+    if (!post) throw new Error("Invalid Request");
+    if (post.title === title?.trim())
+    throw new Error("please do any changes in title");
+    post.title = title;
+    post.save();
+    return res.json({ message: "post updated" });
+  } catch (error) {
+    return res.status(400).json({ message: error?.message });
   }
 };
