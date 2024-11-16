@@ -12,7 +12,7 @@ const authentication = async(req, res, next) => {
     const key="_id"
 
     const user=await userHelper.findUser(key,data?.userId)
-    if(!user) return res.status(404).json({message:"Please login"})
+    if(!user||user?.lastActiveToken!==token) return res.status(404).json({message:"Please login"})
     req.user = user;
     next();
   } catch (error) {

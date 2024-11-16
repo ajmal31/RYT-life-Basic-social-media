@@ -93,7 +93,7 @@ export const addComment = async (req, res) => {
     const post = await postHelper.findOnePost(postId);
     if (!post) throw new Error("Invalid Request");
     post.comments.push({ userId: _id, content });
-    post.save();
+    await post.save();
     res.json({ message: "comment Added" });
   } catch (error) {
     return res.status(400).json({ message: error.message });
@@ -113,7 +113,7 @@ export const updatePost = async (req, res) => {
     if (post.title === title?.trim())
     throw new Error("please do any changes in title");
     post.title = title;
-    post.save();
+    await post.save();
     return res.json({ message: "post updated" });
   } catch (error) {
     return res.status(400).json({ message: error?.message });

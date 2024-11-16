@@ -19,7 +19,8 @@ const userSchema = new Schema({
   },
   profilePictureURL:{
     type:String
-  }
+  },
+  lastActiveToken:{type:String}
 },{
   timestamps:true
 });
