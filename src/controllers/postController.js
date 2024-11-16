@@ -81,3 +81,20 @@ export const likeToggler = async (req, res) => {
     return res.status(400).json({ message: error?.message });
   }
 };
+
+export const addComment = async (req, res) => {
+  try {
+    const { _id } = req?.user;
+    const postId = req.params?.id;
+    const { content } = req.body;
+    if (!postId||!content||typeof content !=="string") throw new Error("Invalid Request");
+
+    const post = await postHelper.findOnePost(postId);
+    if (!post) throw new Error("Invalid Request");
+    post.comments.push({ userId: _id, content });
+    post.save();
+    res.json({message:"comment Added"})
+  } catch (error) {
+    return res.status(400).json({message:error.message})
+  }
+};
