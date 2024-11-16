@@ -15,6 +15,12 @@ export default{
         .sort({_id:1})
         .limit(10)
         .populate("userId",["username"])
+        .populate({
+          path:"comments.userId",
+          select:"username profilePictureURL",
+          options: { strictPopulate: false }
+        })
+        
     },
     deletePost:async(postId,userId)=>{
       return await PostModel.deleteOne({_id:postId,userId})
